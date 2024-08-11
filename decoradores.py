@@ -86,13 +86,28 @@ def decorador_con_argumentos(funcion):
     def funcion_envolvente(*args, **kwargs):
         print('Se está ejecutando el decorador...')
         print(f'con args:{args}, kwargs:{kwargs}')
+        # Modificar los argumentos antes de enviarlos
+        lista_arg = []
+        for indice, valor_tupla in enumerate(args):
+            lista_arg.append(args[indice].upper())
+        # Agregando más elementos a la lista
+        lista_arg.append('nuevo arg 1')
+        lista_arg.append('nuevo arg 2')
+        # Agregando información al diccionario
+        kwargs['valor1'] = 'Nuevo valor 1'
+        kwargs['valor2'] = 'Nuevo valor 2'
         # Propagrando los parámetros a la función original
-        return funcion(*args, **kwargs)
+        # return funcion(*args, **kwargs)
+        # Propagar los valores modificados
+        return funcion(*lista_arg, **kwargs)
     return funcion_envolvente
 @decorador_con_argumentos
-def funcion_saludar(titulo, nombre):
+def funcion_saludar(titulo, nombre, *args, **kwargs):
     # imprimir el título con el nombre
     print(f'{titulo}. {nombre}')
+    # imprimir los argumentos variables
+    print(f'args: {args}')
+    print(f'args: {kwargs}')
 
 funcion_saludar('Ingeniera', 'María Quiroz')
 
